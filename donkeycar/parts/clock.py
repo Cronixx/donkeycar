@@ -1,7 +1,7 @@
 import datetime
 
 
-class Timestamp():
+class Timestamp:
 
     def run(self,):
         return str(datetime.datetime.utcnow())

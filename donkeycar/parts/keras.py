@@ -14,6 +14,8 @@ from tensorflow.python.keras.callbacks import ModelCheckpoint, EarlyStopping
 
 
 class KerasPilot:
+    def __init__(self):
+        self.model = None
 
     def load(self, model_path):
         self.model = load_model(model_path)
