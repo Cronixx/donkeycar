@@ -13,6 +13,7 @@ from .tub import TubManager
 PACKAGE_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 TEMPLATES_PATH = os.path.join(PACKAGE_PATH, 'templates')
 
+
 def make_dir(path):
     real_path = os.path.expanduser(path)
     print('making dir ', real_path)
@@ -125,8 +126,10 @@ class FindCar(BaseCommand):
     def run(self, args):
         print('Looking up your computer IP address...')
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("8.8.8.8",80))
-        ip = s.getsockname()[0]
+
+        # default is to connect to googles dns server
+        # s.connect(("8.8.8.8",80))
+        ip = "127.0.0.1"  # s.getsockname()[0]
         print('Your IP address: %s ' %s.getsockname()[0])
         s.close()
 
@@ -155,7 +158,6 @@ class CalibrateCar(BaseCommand):
         channel = int(args.channel)
         c = PCA9685(channel)
 
-
         while True:
             try:
                 val = input("""Enter a PWM setting to test ('q' for quit) (0-1500): """)
@@ -168,6 +170,7 @@ class CalibrateCar(BaseCommand):
                 break
             except Exception as ex:
                 print("Oops, {}".format(ex))
+
 
 class MakeMovie(BaseCommand):
 
@@ -185,7 +188,6 @@ class MakeMovie(BaseCommand):
         Movie
         """
         import moviepy.editor as mpy
-
 
         args, parser = self.parse_args(args)
 
@@ -232,9 +234,6 @@ class MakeMovie(BaseCommand):
         image = rec['cam/image_array']
 
         return image # returns a 8-bit RGB array
-
-
-
 
 
 class Sim(BaseCommand):
